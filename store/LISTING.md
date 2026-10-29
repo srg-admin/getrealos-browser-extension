@@ -47,7 +47,7 @@ Privacy policy: https://getrealos.com/privacy/#browser-extension
 **Language:** English (United States)
 
 **Graphics:**
-- Store icon 128x128: `icons/icon-128.png`
+- Store icon 128x128: `store/store-icon-128.png` (96x96 artwork + 16px transparent padding, per store guidelines)
 - Small promo tile 440x280: `store/promo-440x280.png`
 - Screenshots 1280x800, in this order:
   1. `store/screenshot-2-matches.png` - the review screen with matched charges
