@@ -49,9 +49,10 @@ Privacy policy: https://getrealos.com/privacy/#browser-extension
 **Graphics:**
 - Store icon 128x128: `icons/icon-128.png`
 - Small promo tile 440x280: `store/promo-440x280.png`
-- Screenshots 1280x800: `store/screenshot-1-import.png` (Import page, test
-  company). A second one of the review screen with matched charges would help -
-  use a test organization, or blur real amounts, item names and order numbers.
+- Screenshots 1280x800, in this order:
+  1. `store/screenshot-2-matches.png` - the review screen with matched charges
+     (item names, order numbers and card digits replaced with sample data)
+  2. `store/screenshot-1-import.png` - the Import page's Sync from Amazon panel
 
 **Official URL:** https://getrealos.com (after verifying the domain)
 **Homepage URL:** https://getrealos.com
