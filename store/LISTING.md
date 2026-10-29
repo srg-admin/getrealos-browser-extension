@@ -75,7 +75,7 @@ Used to run the extension's own bundled script (amazon.js) in a background amazo
 **Permission justification - host permission (https://www.amazon.com/*):**
 
 ```
-Needed to open and read the signed-in user's own Amazon pages: Your Orders, each order's details page, and Your Payments > Transactions. The extension reads nothing on amazon.com until the user starts a sync from RealOS, and it never submits forms or changes anything on Amazon.
+Needed to open and read the signed-in user's own Amazon pages (Your Orders, each order's details page, and Your Payments > Transactions), and to let the RealOS web app (app.getrealos.com) start a sync and receive its results. The extension reads nothing on amazon.com until the user starts a sync from RealOS, and it never submits forms or changes anything on Amazon.
 ```
 
 **Content script on app.getrealos.com / app-dev.getrealos.com** (if asked):
