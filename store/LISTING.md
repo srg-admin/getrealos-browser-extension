@@ -16,14 +16,14 @@ from `.\build.ps1`.
 **Title** (from manifest): Brumilo
 
 **Summary** (from manifest, max 132 chars):
-Adds what each Amazon charge was for to your Brumilo books, from your Amazon order history.
+Shows what each card charge was for in your Brumilo books, starting with your Amazon order history.
 
 **Description:**
 
 ```
 Your bank statement just says "Amazon" - Brumilo shows what you actually bought.
 
-The Brumilo extension is a companion to Brumilo (brumilo.com), the operating system for real estate agents. When you sync from Brumilo, it reads your Amazon order history and card charges right in your own browser, and matches each order to the Amazon charges in your Brumilo books - so every charge shows the items it paid for and is easy to categorize.
+Card statements show a store name and a total. The Brumilo extension fills in the detail: when you sync from Brumilo (brumilo.com), it reads your online order history right in your own browser and matches each order to the card charges in your Brumilo books, so every charge shows the items it paid for and is easy to categorize. Amazon is the first supported store, with more to come.
 
 How it works
 - In Brumilo, go to Accounting > Configuration > Import and click Sync from Amazon.
@@ -32,13 +32,13 @@ How it works
 - Don't like the result? Undo removes everything the sync added.
 
 Private by design
-- Your Amazon password never leaves Amazon. Nothing signs in for you - the extension only reads pages you can already see.
+- Your store password never leaves the store. Nothing signs in for you - the extension only reads pages you can already see.
 - It reads only order numbers, dates, totals, item names and quantities, and the date and amount of each card charge, for the period you choose.
 - It runs only when you start a sync from Brumilo, sends what it reads only to your Brumilo account, and has no tracking or analytics.
 
-Requires a Brumilo account with Accounting and an amazon.com account. Works in Google Chrome and Microsoft Edge on desktop.
+Requires a Brumilo account with Accounting and an account with a supported store (today: amazon.com). Works in Google Chrome and Microsoft Edge on desktop.
 
-Questions? admin@srgstl.com
+Questions? admin@brumilo.com
 Privacy policy: https://brumilo.com/privacy/#browser-extension
 ```
 
@@ -50,9 +50,9 @@ Privacy policy: https://brumilo.com/privacy/#browser-extension
 - Store icon 128x128: `store/store-icon-128.png` (96x96 artwork + 16px transparent padding, per store guidelines)
 - Small promo tile 440x280: `store/promo-440x280.png`
 - Screenshots 1280x800, in this order:
-  1. `store/screenshot-2-matches.png` - the review screen with matched charges
+  1. `store/store-image-1.png` - the review screen with matched charges
      (item names, order numbers and card digits replaced with sample data)
-  2. `store/screenshot-1-import.png` - the Import page's Sync from Amazon panel
+  2. `store/store-image-2.png` - the Import page's Sync from Amazon panel
 
 **Official URL:** https://brumilo.com (after verifying the domain)
 **Homepage URL:** https://brumilo.com
@@ -63,7 +63,7 @@ Privacy policy: https://brumilo.com/privacy/#browser-extension
 **Single purpose:**
 
 ```
-Imports the user's own Amazon order history into their Brumilo account so Brumilo can show what each Amazon card charge paid for.
+Imports the user's own online order history from supported stores (currently Amazon) into their Brumilo account so Brumilo can show what each card charge paid for.
 ```
 
 **Permission justification - scripting:**
