@@ -1,8 +1,8 @@
-// Runs on the RealOS web app. Answers the page's messages (see
+// Runs on the Brumilo web app. Answers the page's messages (see
 // webapp/resources/js/Components/Accounting/amazonExtension.js) and hands
 // syncs to the service worker, passing its progress and result back.
-const PAGE = 'realos-page';
-const EXTENSION = 'realos-extension';
+const PAGE = 'brumilo-page';
+const EXTENSION = 'brumilo-extension';
 
 function reply(message) {
     window.postMessage({ source: EXTENSION, ...message }, window.location.origin);
@@ -24,7 +24,7 @@ window.addEventListener('message', (e) => {
 
     if (!connected()) {
         if (type === 'amazon-sync') {
-            reply({ type: 'error', id, error: 'reload', message: 'The RealOS extension was updated - refresh this page, then sync again.' });
+            reply({ type: 'error', id, error: 'reload', message: 'The Brumilo extension was updated - refresh this page, then sync again.' });
         }
         return;
     }
@@ -40,7 +40,7 @@ window.addEventListener('message', (e) => {
         try {
             port = chrome.runtime.connect({ name: 'amazon-sync' });
         } catch {
-            reply({ type: 'error', id, error: 'reload', message: 'The RealOS extension was updated - refresh this page, then sync again.' });
+            reply({ type: 'error', id, error: 'reload', message: 'The Brumilo extension was updated - refresh this page, then sync again.' });
             return;
         }
         port.onMessage.addListener((message) => {

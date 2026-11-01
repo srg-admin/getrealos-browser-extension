@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "RealOS",
+    "name": "Brumilo",
     "version": "1.0.0",
-    "description": "Adds what each Amazon charge was for to your RealOS books, from your Amazon order history.",
+    "description": "Adds what each Amazon charge was for to your Brumilo books, from your Amazon order history.",
     "icons": {
         "16": "icons/icon-16.png",
         "32": "icons/icon-32.png",
@@ -18,8 +18,8 @@
     "content_scripts": [
         {
             "matches": [
-                "https://app.getrealos.com/*",
-                "https://app-dev.getrealos.com/*",
+                "https://app.brumilo.com/*",
+                "https://app-dev.brumilo.com/*",
                 "http://localhost/*",
                 "http://127.0.0.1/*"
             ],

@@ -1,4 +1,4 @@
-// A RealOS page asks for a sync over a port (see bridge.js). Amazon is read
+// A Brumilo page asks for a sync over a port (see bridge.js). Amazon is read
 // in a background tab, as the user - nothing signs in for them. amazon.js
 // lists the orders from inside amazon.com, then reads the card charges on
 // the transactions page, then opens each order's page in the tab and reads
@@ -7,7 +7,7 @@
 const ORDERS_URL = 'https://www.amazon.com/your-orders/orders';
 const ORDER_URL = 'https://www.amazon.com/gp/css/summary/print.html?orderID=';
 const TRANSACTIONS_URL = 'https://www.amazon.com/cpe/yourpayments/transactions';
-const REALOS = [/^https:\/\/app(-dev)?\.getrealos\.com\//, /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//];
+const BRUMILO = [/^https:\/\/app(-dev)?\.brumilo\.com\//, /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//];
 const PAGE_TIMEOUT_MS = 30000;
 
 let current = null; // { port, tabId }
@@ -74,19 +74,19 @@ async function sync(port, since) {
     };
 
     try {
-        const listed = await inAmazon(tab.id, (from) => realosAmazon.listOrders(from), [since]);
-        console.log('RealOS Amazon sync - listing', { since, listed: listed?.orders?.length }, (listed?.log ?? []).join('\n'));
+        const listed = await inAmazon(tab.id, (from) => brumiloAmazon.listOrders(from), [since]);
+        console.log('Brumilo Amazon sync - listing', { since, listed: listed?.orders?.length }, (listed?.log ?? []).join('\n'));
         if (await needsUser(listed)) return;
 
         tell(port, { type: 'progress', message: 'Reading card charges…' });
         await open(tab.id, TRANSACTIONS_URL);
-        const paid = await inAmazon(tab.id, (from) => realosAmazon.readTransactions(from), [since]);
+        const paid = await inAmazon(tab.id, (from) => brumiloAmazon.readTransactions(from), [since]);
         if (await needsUser(paid)) return;
         const charges = new Map();
         for (const { orderId, date, cents } of paid?.charges ?? []) {
             charges.set(orderId, [...(charges.get(orderId) ?? []), { date, cents }]);
         }
-        console.log('RealOS Amazon sync - charges', { charges: paid?.charges?.length, orders: charges.size });
+        console.log('Brumilo Amazon sync - charges', { charges: paid?.charges?.length, orders: charges.size });
 
         const orders = [];
         let skipped = 0;
@@ -95,11 +95,11 @@ async function sync(port, since) {
             tell(port, { type: 'progress', message: `Reading order ${i + 1} of ${listed.orders.length}…` });
 
             await open(tab.id, ORDER_URL + encodeURIComponent(id));
-            const read = await inAmazon(tab.id, (orderId, listedDate) => realosAmazon.readOrder(orderId, listedDate), [id, date]);
+            const read = await inAmazon(tab.id, (orderId, listedDate) => brumiloAmazon.readOrder(orderId, listedDate), [id, date]);
             if (await needsUser(read)) return;
 
             if (!read?.order) {
-                console.log('RealOS Amazon sync - could not read', id);
+                console.log('Brumilo Amazon sync - could not read', id);
                 skipped++;
             } else if (read.order.order_date < since) {
                 break; // Newest first, so the rest are older still.
@@ -108,10 +108,10 @@ async function sync(port, since) {
             }
         }
 
-        console.log('RealOS Amazon sync - done', { read: orders.length, skipped });
+        console.log('Brumilo Amazon sync - done', { read: orders.length, skipped });
         tell(port, { type: 'done', orders, skipped, listed: listed.orders.length });
     } catch (e) {
-        console.error('RealOS Amazon sync failed', e);
+        console.error('Brumilo Amazon sync failed', e);
         tell(port, { type: 'error', error: 'failed', message: `Couldn't read your Amazon orders (${e.message}).` });
     } finally {
         if (stillWanted(port)) current = null;
@@ -120,7 +120,7 @@ async function sync(port, since) {
 }
 
 chrome.runtime.onConnect.addListener((port) => {
-    if (port.name !== 'amazon-sync' || !REALOS.some((pattern) => pattern.test(port.sender?.url ?? ''))) {
+    if (port.name !== 'amazon-sync' || !BRUMILO.some((pattern) => pattern.test(port.sender?.url ?? ''))) {
         port.disconnect();
         return;
     }
@@ -137,7 +137,7 @@ chrome.runtime.onConnect.addListener((port) => {
         sync(port, since);
     });
 
-    // The RealOS tab went away - stop reading Amazon.
+    // The Brumilo tab went away - stop reading Amazon.
     port.onDisconnect.addListener(() => {
         if (current?.port === port) {
             chrome.tabs.remove(current.tabId).catch(() => {});

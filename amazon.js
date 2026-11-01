@@ -1,5 +1,5 @@
 // Injected into the background amazon.com tab by background.js, which then
-// calls realosAmazon.listOrders / readOrder there. Reads the orders placed on
+// calls brumiloAmazon.listOrders / readOrder there. Reads the orders placed on
 // or after a date (YYYY-MM-DD):
 //
 //   1. listOrders - Your Orders, a year at a time, newest first, fetched
@@ -222,5 +222,5 @@
         return { charges: listedCharges(document).filter((t) => t.cents > 0 && t.orderId && t.date >= since) };
     }
 
-    globalThis.realosAmazon = { listOrders, readTransactions, readOrder, parseOrder, listedOrders, listedCharges };
+    globalThis.brumiloAmazon = { listOrders, readTransactions, readOrder, parseOrder, listedOrders, listedCharges };
 })();

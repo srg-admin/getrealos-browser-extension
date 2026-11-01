@@ -1,9 +1,9 @@
-# Builds the zip to upload to the Chrome Web Store: dist\realos-extension-<version>.zip.
+# Builds the zip to upload to the Chrome Web Store: dist\brumilo-extension-<version>.zip.
 #
 #   .\build.ps1
 #
 # The store copy of manifest.json leaves out the localhost / 127.0.0.1 pages,
-# which are only for testing against a local RealOS. Each upload needs a new
+# which are only for testing against a local Brumilo. Each upload needs a new
 # version - bump "version" in manifest.json first; this refuses to rebuild a
 # version that's already in dist\.
 $ErrorActionPreference = 'Stop'
@@ -14,9 +14,9 @@ $files = @('background.js', 'bridge.js', 'amazon.js', 'icons/icon-16.png', 'icon
 
 $manifest = Get-Content (Join-Path $root 'manifest.json') -Raw | ConvertFrom-Json
 $version = $manifest.version
-$zipPath = Join-Path $root "dist\realos-extension-$version.zip"
+$zipPath = Join-Path $root "dist\brumilo-extension-$version.zip"
 if (Test-Path $zipPath) {
-    throw "dist\realos-extension-$version.zip already exists - bump `"version`" in manifest.json for a new upload."
+    throw "dist\brumilo-extension-$version.zip already exists - bump `"version`" in manifest.json for a new upload."
 }
 
 foreach ($script in $manifest.content_scripts) {
@@ -41,4 +41,4 @@ try {
     $zip.Dispose()
 }
 
-Write-Host "Built dist\realos-extension-$version.zip"
+Write-Host "Built dist\brumilo-extension-$version.zip"
